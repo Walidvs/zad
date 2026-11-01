@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.audio.AdhanPlayer
+import com.example.audio.QuranAudioManager
 import com.example.data.PreferencesManager
 import com.example.ui.components.AdhanDialog
 import com.example.ui.screens.*
@@ -47,10 +48,12 @@ fun MainScreen() {
     val context = LocalContext.current
     val preferencesManager = remember { PreferencesManager(context) }
     val adhanPlayer = remember { AdhanPlayer(context) }
+    val quranAudioManager = remember { QuranAudioManager(context) }
 
     DisposableEffect(Unit) {
         onDispose {
             adhanPlayer.release()
+            quranAudioManager.release()
         }
     }
 
@@ -226,7 +229,7 @@ fun MainScreen() {
                         preferencesManager = preferencesManager
                     )
                     ZadTab.MUSHAF -> MushafScreen(
-                        adhanPlayer = adhanPlayer,
+                        quranAudioManager = quranAudioManager,
                         preferencesManager = preferencesManager
                     )
                     ZadTab.TAFSEER -> TafseerScreen(
